@@ -17,7 +17,7 @@ namespace ShoppingBLLib
         public Cart AddItemstoCart(int id, List<CartItem> cartItems)
         {
             Cart cart = _cartRepo.GetByKey(id);
-            if (cart.CartItems.Count < 5)
+            if (cart.CartItems.Count < 5 && cartItems.Count < 5 && cartItems.Count + cart.CartItems.Count < 5)
             {
                 cart.CartItems.AddRange(cartItems);
             }

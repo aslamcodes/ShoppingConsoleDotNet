@@ -1,6 +1,7 @@
 using ShoppingBLLib;
 using ShoppingDALLib;
 using SolutionModelLib;
+using SolutionModelLib.Exceptions;
 
 namespace CartBLTests;
 
@@ -47,6 +48,28 @@ public class CartItemsTests
         Assert.That(cart.CartItems, Has.Count.EqualTo(2));
         Assert.That(cart.CartItems[1].CartId, Is.EqualTo(2));
     }
+
+    [Test]
+    public void TestAddItemsToCartFail()
+    {
+        // Arange
+        var product = new Product(2, 200, "GameBoy Pro", 10);
+        _productRepo.Add(product);
+        var cartItem = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
+        var cartItem2 = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
+        var cartItem3 = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
+        var cartItem4 = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
+        var cartItem5 = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
+        var cartItem6 = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
+
+
+        List<CartItem> cartItemsToAdd = [cartItem, cartItem2, cartItem3, cartItem4, cartItem5, cartItem6];
+
+        // Action
+        Assert.Throws<CartFullException>(() => _cartService.AddItemstoCart(1, cartItemsToAdd));
+
+    }
+
 
     [Test]
     public void RemoveItemsFromCart()
