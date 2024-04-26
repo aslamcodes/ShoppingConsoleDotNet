@@ -1,7 +1,5 @@
 ﻿using ShoppingDALLib;
 using SolutionModelLib;
-using SolutionModelLib.Enums;
-using SolutionModelLib.Exceptions;
 
 namespace ShoppingBLLib
 {
@@ -25,22 +23,12 @@ namespace ShoppingBLLib
         {
             var product = productRepository.Delete(id);
 
-            if (product == null)
-            {
-                throw new EntityNotFoundException(Entity.Product);
-            }
-
             return product;
         }
 
         public Product GetProductById(int id)
         {
             var product = productRepository.GetByKey(id);
-
-            if (product == null)
-            {
-                throw new EntityNotFoundException(Entity.Product);
-            }
 
             return product;
 
