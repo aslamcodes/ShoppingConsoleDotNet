@@ -18,11 +18,6 @@ namespace ShoppingBLLib
         {
             var createdProduct = productRepository.Add(product);
 
-            if (createdProduct == null)
-            {
-                throw new DuplicateEntityException(Entity.Product);
-            }
-
             return createdProduct;
         }
 

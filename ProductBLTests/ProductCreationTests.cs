@@ -11,22 +11,21 @@ public class ProductCreationTests
     public void Setup()
     {
         productService = new ProductService();
-
-
     }
 
     [Test]
-    public void DeleteProductSuccess()
+    public void CreateProductSuccess()
     {
         var product = new Product(1, 100, "Phone 21", 10);
 
         productService.CreateProduct(product);
+
         Assert.That(product, Is.Not.Null);
 
     }
 
     [Test]
-    public void DeleteProductFails()
+    public void CreateProductFails()
     {
 
         var exception = Assert.Throws<EntityNotFoundException>(() => productService.GetProductById(12));

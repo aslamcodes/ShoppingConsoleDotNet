@@ -14,6 +14,13 @@ namespace ShoppingBLLib
             _cartRepo = cartRepo;
         }
 
+        /// <summary>
+        /// Adds items to the cart identified by the given ID.
+        /// </summary>
+        /// <param name="id">The ID of the cart to add items to.</param>
+        /// <param name="cartItems">The list of items to add to the cart.</param>
+        /// <returns>The updated cart after adding the items.</returns>
+        /// <exception cref="CartFullException">Thrown when attempting to add items to a full cart.</exception>
         public Cart AddItemstoCart(int id, List<CartItem> cartItems)
         {
             Cart cart = _cartRepo.GetByKey(id);
@@ -29,6 +36,12 @@ namespace ShoppingBLLib
             return cart;
         }
 
+        /// <summary>
+        /// Creates a new cart in the system.
+        /// </summary>
+        /// <param name="cart">The cart object to be created.</param>
+        /// <returns>The newly created cart.</returns>
+        /// <exception cref="DuplicateEntityException">Thrown when attempting to create a cart that already exists.</exception>
         public Cart CreateCart(Cart cart)
         {
             Cart createdCart = _cartRepo.Add(cart);
@@ -41,6 +54,12 @@ namespace ShoppingBLLib
             throw new DuplicateEntityException(Entity.Cart);
         }
 
+        /// <summary>
+        /// Deletes the cart with the specified ID from the system.
+        /// </summary>
+        /// <param name="id">The ID of the cart to delete.</param>
+        /// <returns>The deleted cart.</returns>
+        /// <exception cref="EntityNotFoundException">Thrown when the cart with the specified ID is not found.</exception>
         public Cart DeleteCart(int id)
         {
             Cart deletedCart = _cartRepo.Delete(id);
@@ -53,6 +72,11 @@ namespace ShoppingBLLib
             throw new EntityNotFoundException(Entity.Cart);
         }
 
+        /// <summary>
+        /// Calculates the total cost of the items in the cart with the specified ID and provides payment details.
+        /// </summary>
+        /// <param name="id">The ID of the cart to calculate the total for.</param>
+        /// <returns>A tuple containing the total cost and payment details.</returns>
         public (double, string) GetCartTotal(int id)
         {
             string paymentDetails = "";
@@ -85,7 +109,12 @@ namespace ShoppingBLLib
             return (total, paymentDetails);
 
         }
-
+        /// <summary>
+        /// Removes items from the cart with the specified ID based on the provided list of item IDs.
+        /// </summary>
+        /// <param name="id">The ID of the cart to remove items from.</param>
+        /// <param name="cartItemIds">The list of IDs of items to be removed from the cart.</param>
+        /// <returns>The updated cart after removing the specified items.</returns>
         public Cart RemoveItemsFromCart(int id, List<int> cartItemIds)
         {
             var cart = _cartRepo.GetByKey(id);
@@ -104,6 +133,13 @@ namespace ShoppingBLLib
             return cart;
         }
 
+        /// <summary>
+        /// Updates the cart with the specified ID using the provided cart object.
+        /// </summary>
+        /// <param name="id">The ID of the cart to update.</param>
+        /// <param name="cart">The updated cart object.</param>
+        /// <returns>The updated cart.</returns>
+        /// <exception cref="EntityNotFoundException">Thrown when the cart with the specified ID is not found.</exception>
         public Cart UpdateCart(int id, Cart cart)
         {
 
