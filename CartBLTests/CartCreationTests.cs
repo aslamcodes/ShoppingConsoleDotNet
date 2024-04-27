@@ -29,7 +29,7 @@ public class CartCreationTests
         _customerRepository.Add(customer);
 
         // Action
-        var cart = _cartService.CreateCart(new Cart(1, 1, customer, []));
+        var cart = _cartService.CreateCartAsync(new Cart(1, 1, customer, []));
 
         // Assert
         Assert.That(cart, Is.Not.Null);
@@ -43,9 +43,9 @@ public class CartCreationTests
         _customerRepository.Add(customer);
 
         var cart = new Cart(1, 1, customer, []);
-        _cartService.CreateCart(cart);
+        _cartService.CreateCartAsync(cart);
 
-        Assert.Throws<DuplicateEntityException>(() => _cartService.CreateCart(cart));
+        Assert.Throws<DuplicateEntityException>(() => _cartService.CreateCartAsync(cart));
     }
 
 }

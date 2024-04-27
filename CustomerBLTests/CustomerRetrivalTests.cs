@@ -12,13 +12,13 @@ public class CustomerRetrivalTests
     public void Setup()
     {
         customerService = new CustomerService();
-        customerService.CreateCustomer(new Customer(1, "12123", 12));
+        customerService.CreateCustomerAsync(new Customer(1, "12123", 12));
     }
 
     [Test]
     public void GetCustomer()
     {
-        var customer = customerService.GetCustomer(1);
+        var customer = customerService.GetCustomerAsync(1);
 
         Assert.That(customer, Is.Not.Null);
 
@@ -33,7 +33,7 @@ public class CustomerRetrivalTests
     [Test]
     public void GetCustomerFails()
     {
-        Assert.Throws<EntityNotFoundException>(() => customerService.GetCustomer(2));
+        Assert.Throws<EntityNotFoundException>(() => customerService.GetCustomerAsync(2));
 
     }
 }

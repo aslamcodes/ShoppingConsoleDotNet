@@ -18,7 +18,7 @@ public class ProductCreationTests
     {
         var product = new Product(1, 100, "Phone 21", 10);
 
-        productService.CreateProduct(product);
+        productService.CreateProductAsync(product);
 
         Assert.That(product, Is.Not.Null);
 
@@ -28,7 +28,7 @@ public class ProductCreationTests
     public void CreateProductFails()
     {
 
-        var exception = Assert.Throws<EntityNotFoundException>(() => productService.GetProductById(12));
+        var exception = Assert.Throws<EntityNotFoundException>(() => productService.GetProductByIdAsync(12));
         Assert.That(exception.Message, Is.EqualTo("Product not found"));
 
     }

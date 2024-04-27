@@ -4,16 +4,16 @@ namespace ShoppingBLLib
 {
     public interface ICartService
     {
-        Cart CreateCart(Cart cart);
+        Task<Cart> CreateCartAsync(Cart cart);
 
-        Cart UpdateCart(int id, Cart cart);
+        Task<Cart> UpdateCartAsync(int id, Cart cart);
 
-        Cart DeleteCart(int id);
+        Task<Cart> DeleteCartAsync(int id);
 
-        Cart AddItemstoCart(int id, List<CartItem> cartItems);
+        Task<Cart> AddItemstoCartAsync(int id, List<CartItem> cartItems);
 
-        Cart RemoveItemsFromCart(int id, List<int> cartItemIds);
+        Task<Cart> RemoveItemsFromCartAsync(int id, List<int> cartItemIds);
 
-        (double, string) GetCartTotal(int id);
+        Task<(double, string)> GetCartTotalAsync(int id);
     }
 }

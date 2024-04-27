@@ -42,7 +42,7 @@ public class CartItemsTests
         List<CartItem> cartItemsToAdd = [cartItem];
 
         // Action
-        Cart cart = _cartService.AddItemstoCart(1, cartItemsToAdd);
+        Cart cart = _cartService.AddItemstoCartAsync(1, cartItemsToAdd);
 
         // Assert
         Assert.That(cart.CartItems, Has.Count.EqualTo(2));
@@ -66,7 +66,7 @@ public class CartItemsTests
         List<CartItem> cartItemsToAdd = [cartItem, cartItem2, cartItem3, cartItem4, cartItem5, cartItem6];
 
         // Action
-        Assert.Throws<CartFullException>(() => _cartService.AddItemstoCart(1, cartItemsToAdd));
+        Assert.Throws<CartFullException>(() => _cartService.AddItemstoCartAsync(1, cartItemsToAdd));
 
     }
 
@@ -74,7 +74,7 @@ public class CartItemsTests
     [Test]
     public void RemoveItemsFromCart()
     {
-        var cart = _cartService.RemoveItemsFromCart(1, [1]);
+        var cart = _cartService.RemoveItemsFromCartAsync(1, [1]);
 
         Assert.That(cart.CartItems, Is.Empty);
     }

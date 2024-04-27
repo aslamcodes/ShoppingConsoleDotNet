@@ -21,9 +21,9 @@ namespace ShoppingBLLib
         /// <param name="cartItems">The list of items to add to the cart.</param>
         /// <returns>The updated cart after adding the items.</returns>
         /// <exception cref="CartFullException">Thrown when attempting to add items to a full cart.</exception>
-        public Cart AddItemstoCart(int id, List<CartItem> cartItems)
+        public async Task<Cart> AddItemstoCartAsync(int id, List<CartItem> cartItems)
         {
-            Cart cart = _cartRepo.GetByKey(id);
+            Cart cart = await _cartRepo.GetByKey(id);
             if (cart.CartItems.Count < 5 && cartItems.Count < 5 && cartItems.Count + cart.CartItems.Count < 5)
             {
                 cart.CartItems.AddRange(cartItems);
@@ -42,9 +42,9 @@ namespace ShoppingBLLib
         /// <param name="cart">The cart object to be created.</param>
         /// <returns>The newly created cart.</returns>
         /// <exception cref="DuplicateEntityException">Thrown when attempting to create a cart that already exists.</exception>
-        public Cart CreateCart(Cart cart)
+        public async Task<Cart> CreateCartAsync(Cart cart)
         {
-            Cart createdCart = _cartRepo.Add(cart);
+            Cart createdCart = await _cartRepo.Add(cart);
 
             if (createdCart != null)
             {
@@ -60,9 +60,9 @@ namespace ShoppingBLLib
         /// <param name="id">The ID of the cart to delete.</param>
         /// <returns>The deleted cart.</returns>
         /// <exception cref="EntityNotFoundException">Thrown when the cart with the specified ID is not found.</exception>
-        public Cart DeleteCart(int id)
+        public async Task<Cart> DeleteCartAsync(int id)
         {
-            Cart deletedCart = _cartRepo.Delete(id);
+            Cart deletedCart = await _cartRepo.Delete(id);
 
             if (deletedCart != null)
             {
@@ -77,11 +77,11 @@ namespace ShoppingBLLib
         /// </summary>
         /// <param name="id">The ID of the cart to calculate the total for.</param>
         /// <returns>A tuple containing the total cost and payment details.</returns>
-        public (double, string) GetCartTotal(int id)
+        public async Task<(double, string)> GetCartTotalAsync(int id)
         {
             string paymentDetails = "";
             double total = 0;
-            var cart = _cartRepo.GetByKey(id);
+            var cart = await _cartRepo.GetByKey(id);
 
             foreach (var item in cart.CartItems)
             {
@@ -115,9 +115,9 @@ namespace ShoppingBLLib
         /// <param name="id">The ID of the cart to remove items from.</param>
         /// <param name="cartItemIds">The list of IDs of items to be removed from the cart.</param>
         /// <returns>The updated cart after removing the specified items.</returns>
-        public Cart RemoveItemsFromCart(int id, List<int> cartItemIds)
+        public async Task<Cart> RemoveItemsFromCartAsync(int id, List<int> cartItemIds)
         {
-            var cart = _cartRepo.GetByKey(id);
+            var cart = await _cartRepo.GetByKey(id);
 
             foreach (var cartItemId in cartItemIds)
             {
@@ -140,12 +140,12 @@ namespace ShoppingBLLib
         /// <param name="cart">The updated cart object.</param>
         /// <returns>The updated cart.</returns>
         /// <exception cref="EntityNotFoundException">Thrown when the cart with the specified ID is not found.</exception>
-        public Cart UpdateCart(int id, Cart cart)
+        public async Task<Cart> UpdateCartAsync(int id, Cart cart)
         {
 
             if (cart != null)
             {
-                return _cartRepo.Update(cart);
+                return await _cartRepo.Update(cart);
             }
             throw new EntityNotFoundException(Entity.Cart);
         }

@@ -4,13 +4,13 @@ namespace ShoppingBLLib
 {
     public interface IProductService
     {
-        Product GetProductById(int id);
+        Task<Product> GetProductByIdAsync(int id);
 
-        Product UpdateProduct(int id, Product product);
+        Task<Product> UpdateProductAsync(int id, Product product);
 
-        Product DeleteProduct(int id);
+        Task<Product> DeleteProductAsync(int id);
 
-        Product CreateProduct(Product product);
+        Task<Product> CreateProductAsync(Product product);
 
     }
 }

@@ -36,7 +36,7 @@ public class CartUpdationTests
     {
         var customer = new Customer(1, "123", 12);
         var newCart = new Cart(1, 1, customer, []);
-        var cart = _cartService.UpdateCart(1, newCart);
+        var cart = _cartService.UpdateCartAsync(1, newCart);
 
         Assert.That(cart, Is.Not.Null);
         Assert.That(cart.CartItems, Has.Count.EqualTo(0));

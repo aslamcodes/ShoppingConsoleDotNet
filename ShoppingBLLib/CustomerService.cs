@@ -14,9 +14,9 @@ namespace ShoppingBLLib
             customerRepo = new CustomerRepository();
         }
 
-        public Customer CreateCustomer(Customer customer)
+        public async Task<Customer> CreateCustomerAsync(Customer customer)
         {
-            var createdCustomer = customerRepo.Add(customer);
+            var createdCustomer = await customerRepo.Add(customer);
 
             if (createdCustomer != null)
             {
@@ -26,9 +26,9 @@ namespace ShoppingBLLib
             throw new DuplicateEntityException(Entity.Customer);
         }
 
-        public Customer DeleteCustomer(int id)
+        public async Task<Customer> DeleteCustomerAsync(int id)
         {
-            var deletedCustomer = customerRepo.Delete(id);
+            var deletedCustomer = await customerRepo.Delete(id);
 
             if (deletedCustomer != null)
             {
@@ -38,9 +38,9 @@ namespace ShoppingBLLib
             throw new EntityNotFoundException(Entity.Customer);
         }
 
-        public Customer GetCustomer(int id)
+        public async Task<Customer> GetCustomerAsync(int id)
         {
-            var customer = customerRepo.GetByKey(id);
+            var customer = await customerRepo.GetByKey(id);
 
             if (customer != null)
             {
@@ -50,9 +50,9 @@ namespace ShoppingBLLib
             throw new EntityNotFoundException(Entity.Customer);
         }
 
-        public Customer UpdateCustomer(int id, Customer customer)
+        public async Task<Customer> UpdateCustomerAsync(int id, Customer customer)
         {
-            var updatedProduct = customerRepo.Update(customer);
+            var updatedProduct = await customerRepo.Update(customer);
 
             return updatedProduct;
         }

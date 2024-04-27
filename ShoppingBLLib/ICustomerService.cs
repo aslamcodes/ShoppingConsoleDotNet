@@ -4,12 +4,12 @@ namespace ShoppingBLLib
 {
     public interface ICustomerService
     {
-        Customer GetCustomer(int id);
+        Task<Customer> GetCustomerAsync(int id);
 
-        Customer UpdateCustomer(int id, Customer customer);
+        Task<Customer> UpdateCustomerAsync(int id, Customer customer);
 
-        Customer DeleteCustomer(int id);
+        Task<Customer> DeleteCustomerAsync(int id);
 
-        Customer CreateCustomer(Customer customer);
+        Task<Customer> CreateCustomerAsync(Customer customer);
     }
 }

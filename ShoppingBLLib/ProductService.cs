@@ -12,21 +12,21 @@ namespace ShoppingBLLib
             productRepository = new ProductRepository();
         }
 
-        public Product CreateProduct(Product product)
+        public Task<Product> CreateProductAsync(Product product)
         {
             var createdProduct = productRepository.Add(product);
 
             return createdProduct;
         }
 
-        public Product DeleteProduct(int id)
+        public Task<Product> DeleteProductAsync(int id)
         {
             var product = productRepository.Delete(id);
 
             return product;
         }
 
-        public Product GetProductById(int id)
+        public Task<Product> GetProductByIdAsync(int id)
         {
             var product = productRepository.GetByKey(id);
 
@@ -34,7 +34,7 @@ namespace ShoppingBLLib
 
         }
 
-        public Product UpdateProduct(int id, Product product)
+        public Task<Product> UpdateProductAsync(int id, Product product)
         {
 
             var updatedProduct = productRepository.Update(product);
