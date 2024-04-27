@@ -1,33 +1,19 @@
-﻿using ShoppingDALLib;
-using SolutionModelLib;
-
-namespace ShoppingSLN
+﻿namespace ShoppingSLN
 {
-    public class Program
-    {
 
+    // These classes are intentionally empty for the purpose of this example. They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.
+    internal class Bacon { }
+    internal class Coffee { }
+    internal class Egg { }
+    internal class Juice { }
+    internal class Toast { }
+
+    class Program
+    {
 
         static void Main(string[] args)
         {
 
-            // Shipping app BL -> Unit Test
-            IRepository<int, Customer> customerRepo = new CustomerRepository();
-            customerRepo.Add(new Customer(1, "123", 2312));
-            customerRepo.Add(new Customer(3, "123", 231));
-            customerRepo.Add(new Customer(2, "123", 23123));
-
-            var customers = customerRepo.GetAll().ToList();
-            customers = customers.OrderBy(customer => customer).ToList();
-            foreach (var item in customers)
-            {
-                Console.WriteLine(item.Age);
-            }
-
-
         }
-
-
     }
-
-
 }

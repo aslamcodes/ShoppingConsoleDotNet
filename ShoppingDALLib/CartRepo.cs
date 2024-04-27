@@ -6,7 +6,7 @@ namespace ShoppingDALLib;
 
 public class CartRepo : AbstractRepository<int, Cart>
 {
-    public override Cart Delete(int key)
+    public override Task<Cart> Delete(int key)
     {
         Cart customer = GetByKey(key);
 
