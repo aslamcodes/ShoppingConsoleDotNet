@@ -19,9 +19,9 @@ namespace ProductRepoTests
         }
 
         [Test]
-        public void GetProductSuccess()
+        public async Task GetProductSuccess()
         {
-            var product = _productRepo.GetByKey(1);
+            var product = await _productRepo.GetByKey(1);
 
             Assert.That(product, Is.Not.Null);
             Assert.That(product.Id, Is.EqualTo(1));
@@ -31,7 +31,7 @@ namespace ProductRepoTests
         [Test]
         public void GetProductFail()
         {
-            var exception = Assert.Throws<EntityNotFoundException>(() => _productRepo.GetByKey(2));
+            var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await _productRepo.GetByKey(2));
 
             Assert.That(exception.Message, Is.EqualTo("Product not found"));
         }

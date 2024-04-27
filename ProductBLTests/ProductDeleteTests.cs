@@ -18,12 +18,12 @@ public class ProductDeletionTests
     }
 
     [Test]
-    public void DeleteProductSuccess()
+    public async Task DeleteProductSuccess()
     {
-        var product = productService.DeleteProductAsync(1);
+        var product = await productService.DeleteProductAsync(1);
 
         Assert.That(product, Is.Not.Null);
-        Assert.Throws<EntityNotFoundException>(() => productService.GetProductByIdAsync(1));
+        Assert.ThrowsAsync<EntityNotFoundException>(async () => await productService.GetProductByIdAsync(1));
 
     }
 
@@ -31,7 +31,7 @@ public class ProductDeletionTests
     public void DeleteProductFails()
     {
 
-        var exception = Assert.Throws<EntityNotFoundException>(() => productService.GetProductByIdAsync(12));
+        var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await productService.GetProductByIdAsync(12));
         Assert.That(exception.Message, Is.EqualTo("Product not found"));
 
     }

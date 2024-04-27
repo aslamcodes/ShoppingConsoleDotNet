@@ -37,15 +37,15 @@ public class CartCreationTests
     }
 
     [Test]
-    public void CreateCartFail()
+    public async Task CreateCartFail()
     {
         var customer = new Customer(1, "123", 12);
-        _customerRepository.Add(customer);
+        await _customerRepository.Add(customer);
 
         var cart = new Cart(1, 1, customer, []);
-        _cartService.CreateCartAsync(cart);
+        await _cartService.CreateCartAsync(cart);
 
-        Assert.Throws<DuplicateEntityException>(() => _cartService.CreateCartAsync(cart));
+        Assert.ThrowsAsync<DuplicateEntityException>(async () => await _cartService.CreateCartAsync(cart));
     }
 
 }

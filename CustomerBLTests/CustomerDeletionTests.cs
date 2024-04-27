@@ -16,20 +16,20 @@ public class CustomerDeletionTests
     }
 
     [Test]
-    public void DeleteCustomer()
+    public async Task DeleteCustomer()
     {
-        var customer = customerService.DeleteCustomerAsync(1);
+        var customer = await customerService.DeleteCustomerAsync(1);
 
         Assert.That(customer, Is.Not.Null);
         Assert.That(customer.Age, Is.EqualTo(12));
-        Assert.Throws<EntityNotFoundException>(() => customerService.DeleteCustomerAsync(1));
+        Assert.ThrowsAsync<EntityNotFoundException>(async () => await customerService.DeleteCustomerAsync(1));
 
     }
 
     [Test]
     public void DeleteCustomerFails()
     {
-        Assert.Throws<EntityNotFoundException>(() => customerService.DeleteCustomerAsync(2));
+        Assert.ThrowsAsync<EntityNotFoundException>(async () => await customerService.DeleteCustomerAsync(2));
 
     }
 }

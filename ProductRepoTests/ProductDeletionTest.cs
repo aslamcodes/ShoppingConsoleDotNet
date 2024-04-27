@@ -19,9 +19,9 @@ namespace ProductRepoTests
         }
 
         [Test]
-        public void DeleteProductSuccess()
+        public async Task DeleteProductSuccess()
         {
-            var product = _productRepo.Delete(1);
+            var product = await _productRepo.Delete(1);
 
             Assert.That(product, Is.Not.Null);
             Assert.That(product.Id, Is.EqualTo(1));
@@ -31,7 +31,7 @@ namespace ProductRepoTests
         [Test]
         public void DeleteProductFail()
         {
-            var exception = Assert.Throws<EntityNotFoundException>(() => _productRepo.Delete(2));
+            var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await _productRepo.Delete(2));
 
             Assert.That(exception.Message, Is.EqualTo("Product not found"));
         }

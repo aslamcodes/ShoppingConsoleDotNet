@@ -15,9 +15,9 @@ public class CustomerCreationTests
     }
 
     [Test]
-    public void CustomerCreationTest()
+    public async Task CustomerCreationTest()
     {
-        var customer = customerService.CreateCustomerAsync(new Customer(1, "123", 12));
+        var customer = await customerService.CreateCustomerAsync(new Customer(1, "123", 12));
         Assert.That(customer, Is.Not.Null);
         Assert.That(customer.Age, Is.EqualTo(12));
 

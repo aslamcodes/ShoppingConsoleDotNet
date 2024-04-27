@@ -39,10 +39,10 @@ public class CartDeletionTests
     }
 
     [Test]
-    public void DeleteCartSuccess()
+    public async Task DeleteCartSuccess()
     {
         // Action
-        var cart = _cartService.DeleteCartAsync(1);
+        var cart = await _cartService.DeleteCartAsync(1);
 
         // Assert
         Assert.That(cart, Is.Not.Null);
@@ -53,7 +53,7 @@ public class CartDeletionTests
     public void DeleteCartFailure()
     {
         // Assert
-        var exception = Assert.Throws<EntityNotFoundException>(() => _cartService.DeleteCartAsync(2));
+        var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await _cartService.DeleteCartAsync(2));
         Assert.That(exception.Message, Is.EqualTo("Cart not found"));
     }
 

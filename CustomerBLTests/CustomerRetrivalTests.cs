@@ -16,9 +16,9 @@ public class CustomerRetrivalTests
     }
 
     [Test]
-    public void GetCustomer()
+    public async Task GetCustomer()
     {
-        var customer = customerService.GetCustomerAsync(1);
+        var customer = await customerService.GetCustomerAsync(1);
 
         Assert.That(customer, Is.Not.Null);
 
@@ -33,7 +33,7 @@ public class CustomerRetrivalTests
     [Test]
     public void GetCustomerFails()
     {
-        Assert.Throws<EntityNotFoundException>(() => customerService.GetCustomerAsync(2));
+        Assert.ThrowsAsync<EntityNotFoundException>(async () => await customerService.GetCustomerAsync(2));
 
     }
 }

@@ -16,13 +16,13 @@ namespace CartRepoTests
         }
 
         [Test]
-        public void UpdateCartSuccess()
+        public async Task UpdateCartSuccess()
         {
-            var cart = _cartRepo.GetByKey(1);
+            var cart = await _cartRepo.GetByKey(1);
 
             cart.CartItems.Add(new CartItem(1, 1, null, 1, 1, new DateTime()));
 
-            var updatedCart = _cartRepo.Update(cart);
+            var updatedCart = await _cartRepo.Update(cart);
 
             Assert.That(updatedCart, Is.Not.Null);
             Assert.That(updatedCart.CartItems.Count, Is.EqualTo(1));

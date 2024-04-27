@@ -16,22 +16,22 @@ namespace CustomerRepoTests
         }
 
         [Test]
-        public void DeleteCustomeruccess()
+        public async Task DeleteCustomeruccess()
         {
 
-            _customerRepository.Add(new Customer(1, "123", 12));
+            await _customerRepository.Add(new Customer(1, "123", 12));
 
-            var customer = _customerRepository.Delete(1);
+            var customer = await _customerRepository.Delete(1);
 
             Assert.That(customer, Is.Not.Null);
             Assert.That(customer.Id, Is.EqualTo(1));
-            Assert.Throws<EntityNotFoundException>(() => _customerRepository.Delete(1));
+            Assert.ThrowsAsync<EntityNotFoundException>(async () => await _customerRepository.Delete(1));
         }
 
         [Test]
         public void DeleteCustomerFail()
         {
-            var exception = Assert.Throws<EntityNotFoundException>(() => _customerRepository.Delete(2));
+            var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await _customerRepository.Delete(2));
 
             Assert.That(exception.Message, Is.EqualTo("Customer not found"));
         }

@@ -18,9 +18,9 @@ public class ProductUpdationTests
     }
 
     [Test]
-    public void UpdateProductTests()
+    public async Task UpdateProductTests()
     {
-        var product = productService.UpdateProductAsync(1, new Product(1, 110, "Phone 2A", 1));
+        var product = await productService.UpdateProductAsync(1, new Product(1, 110, "Phone 2A", 1));
 
         Assert.That(product, Is.Not.Null);
 
@@ -37,7 +37,7 @@ public class ProductUpdationTests
     public void DeleteProductFails()
     {
 
-        var exception = Assert.Throws<EntityNotFoundException>(() => productService.UpdateProductAsync(11, new Product(11, 110, "Phone 2A", 1)));
+        var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await productService.UpdateProductAsync(11, new Product(11, 110, "Phone 2A", 1)));
         Assert.That(exception.Message, Is.EqualTo("Product not found"));
 
     }

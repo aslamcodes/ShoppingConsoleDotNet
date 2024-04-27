@@ -39,12 +39,15 @@ public class CartCheckoutTests
 
 
     [Test]
-    public void CartCheckoutTest()
+    public async Task CartCheckoutTest()
     {
-        (double total, string paymentDetails) = _cartService.GetCartTotal(1);
+        (double total, string paymentDetails) = await _cartService.GetCartTotalAsync(1);
 
-        Assert.That(total, Is.EqualTo(2700 - 2700 * 0.05));
-        Assert.That(paymentDetails, Is.EqualTo("GameBoy Basic ==> 100 + 100rs(delivery) X 5\nGameBoy Pro ==> 1000 X 1\nGameBoy Plus ==> 700 X 1\n\t\tDiscount = -128.25\nTotal = $2565"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(total, Is.EqualTo(2700 - 2700 * 0.05));
+            Assert.That(paymentDetails, Is.EqualTo("GameBoy Basic ==> 100 + 100rs(delivery) X 5\nGameBoy Pro ==> 1000 X 1\nGameBoy Plus ==> 700 X 1\n\t\tDiscount = -128.25\nTotal = $2565"));
+        });
     }
 
 

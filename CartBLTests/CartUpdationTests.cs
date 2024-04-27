@@ -32,11 +32,11 @@ public class CartUpdationTests
 
 
     [Test]
-    public void CartUpdationTest()
+    public async Task CartUpdationTest()
     {
         var customer = new Customer(1, "123", 12);
         var newCart = new Cart(1, 1, customer, []);
-        var cart = _cartService.UpdateCartAsync(1, newCart);
+        var cart = await _cartService.UpdateCartAsync(1, newCart);
 
         Assert.That(cart, Is.Not.Null);
         Assert.That(cart.CartItems, Has.Count.EqualTo(0));

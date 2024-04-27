@@ -17,20 +17,20 @@ namespace CartRepoTests
         }
 
         [Test]
-        public void DeleteCartSuccess()
+        public async Task DeleteCartSuccess()
         {
 
-            var cart = _cartRepository.Delete(1);
+            var cart = await _cartRepository.Delete(1);
 
             Assert.That(cart, Is.Not.Null);
             Assert.That(cart.Id, Is.EqualTo(1));
-            Assert.Throws<EntityNotFoundException>(() => _cartRepository.Delete(1));
+            Assert.ThrowsAsync<EntityNotFoundException>(async () => await _cartRepository.Delete(1));
         }
 
         [Test]
         public void DeleteCartFail()
         {
-            var exception = Assert.Throws<EntityNotFoundException>(() => _cartRepository.Delete(2));
+            var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await _cartRepository.Delete(2));
 
             Assert.That(exception.Message, Is.EqualTo("Cart not found"));
         }

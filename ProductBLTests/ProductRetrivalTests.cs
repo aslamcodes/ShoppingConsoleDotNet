@@ -8,19 +8,19 @@ public class Tests
 {
     private ProductService productService;
     [SetUp]
-    public void Setup()
+    public async Task Setup()
     {
         productService = new ProductService();
 
         var product = new Product(1, 100, "Phone 21", 10);
 
-        productService.CreateProductAsync(product);
+        await productService.CreateProductAsync(product);
     }
 
     [Test]
-    public void GetProductTests()
+    public async Task GetProductTests()
     {
-        var product = productService.GetProductByIdAsync(1);
+        var product = await productService.GetProductByIdAsync(1);
 
         Assert.That(product, Is.Not.Null);
         Assert.Multiple(() =>
@@ -35,7 +35,7 @@ public class Tests
     public void GetProductFails()
     {
 
-        var exception = Assert.Throws<EntityNotFoundException>(() => productService.GetProductByIdAsync(12));
+        var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await productService.GetProductByIdAsync(12));
         Assert.That(exception.Message, Is.EqualTo("Product not found"));
 
     }

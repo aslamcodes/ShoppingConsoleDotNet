@@ -16,13 +16,13 @@ namespace CustomerRepoTests
         }
 
         [Test]
-        public void UpdateCustomerSuccess()
+        public async Task UpdateCustomerSuccess()
         {
-            var customer = _customerRepository.GetByKey(1);
+            var customer = await _customerRepository.GetByKey(1);
 
             customer.Age = 112;
 
-            var updatedCustomer = _customerRepository.Update(customer);
+            var updatedCustomer = await _customerRepository.Update(customer);
 
             Assert.That(updatedCustomer, Is.Not.Null);
             Assert.Multiple(() =>
@@ -36,7 +36,7 @@ namespace CustomerRepoTests
         [Test]
         public void UpdateCustomerFail()
         {
-            var exception = Assert.Throws<EntityNotFoundException>(() => _customerRepository.Update(_customerRepository.GetByKey(2)));
+            var exception = Assert.ThrowsAsync<EntityNotFoundException>(async () => await _customerRepository.Update(await _customerRepository.GetByKey(2)));
 
             Assert.That(exception.Message, Is.EqualTo("Customer not found"));
         }

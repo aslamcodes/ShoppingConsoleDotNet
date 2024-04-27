@@ -33,16 +33,16 @@ public class CartItemsTests
 
 
     [Test]
-    public void TestAddItemsToCart()
+    public async Task TestAddItemsToCart()
     {
         // Arange
         var product = new Product(2, 200, "GameBoy Pro", 10);
-        _productRepo.Add(product);
+        await _productRepo.Add(product);
         var cartItem = new CartItem(2, 2, product, 12, 100, new DateTime(2024, 12, 12));
         List<CartItem> cartItemsToAdd = [cartItem];
 
         // Action
-        Cart cart = _cartService.AddItemstoCartAsync(1, cartItemsToAdd);
+        Cart cart = await _cartService.AddItemstoCartAsync(1, cartItemsToAdd);
 
         // Assert
         Assert.That(cart.CartItems, Has.Count.EqualTo(2));
@@ -66,15 +66,15 @@ public class CartItemsTests
         List<CartItem> cartItemsToAdd = [cartItem, cartItem2, cartItem3, cartItem4, cartItem5, cartItem6];
 
         // Action
-        Assert.Throws<CartFullException>(() => _cartService.AddItemstoCartAsync(1, cartItemsToAdd));
+        Assert.ThrowsAsync<CartFullException>(async () => await _cartService.AddItemstoCartAsync(1, cartItemsToAdd));
 
     }
 
 
     [Test]
-    public void RemoveItemsFromCart()
+    public async Task RemoveItemsFromCart()
     {
-        var cart = _cartService.RemoveItemsFromCartAsync(1, [1]);
+        var cart = await _cartService.RemoveItemsFromCartAsync(1, [1]);
 
         Assert.That(cart.CartItems, Is.Empty);
     }
