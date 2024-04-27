@@ -6,9 +6,9 @@ namespace ShoppingDALLib;
 
 public class CartRepo : AbstractRepository<int, Cart>
 {
-    public override Task<Cart> Delete(int key)
+    async public override Task<Cart> Delete(int key)
     {
-        Cart customer = GetByKey(key);
+        Cart customer = await GetByKey(key);
 
         if (customer != null)
         {
@@ -20,7 +20,7 @@ public class CartRepo : AbstractRepository<int, Cart>
         throw new EntityNotFoundException(Entity.Cart);
     }
 
-    public override Cart Add(Cart item)
+    public override Task<Cart> Add(Cart item)
     {
         foreach (var cart in items)
         {
@@ -32,20 +32,20 @@ public class CartRepo : AbstractRepository<int, Cart>
         return base.Add(item);
     }
 
-    public override Cart GetByKey(int key)
+    public override Task<Cart> GetByKey(int key)
     {
         foreach (var t in items)
         {
             if (t.Id == key)
-                return t;
+                return Task.FromResult(t);
         }
 
         throw new EntityNotFoundException(Entity.Cart);
     }
 
-    public override Cart Update(Cart item)
+    async public override Task<Cart> Update(Cart item)
     {
-        Cart customer = GetByKey(item.Id);
+        Cart customer = await GetByKey(item.Id);
         if (customer != null)
         {
             customer = item;

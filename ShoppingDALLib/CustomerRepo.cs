@@ -6,28 +6,30 @@ namespace ShoppingDALLib;
 
 public class CustomerRepository : AbstractRepository<int, Customer>
 {
-    public override Customer Delete(int key)
+    async public override Task<Customer> Delete(int key)
     {
-        var customer = GetByKey(key);
+        var customer = await GetByKey(key);
 
         items.Remove(customer);
+
         return customer;
     }
 
-    public override Customer GetByKey(int key)
+    public override Task<Customer> GetByKey(int key)
     {
         for (int i = 0; i < items.Count; i++)
         {
             if (items[i].Id == key)
-                return items[i];
+                return Task.FromResult(items[i]);
         }
 
         throw new EntityNotFoundException(Entity.Customer);
     }
 
-    public override Customer Update(Customer item)
+    async public override Task<Customer> Update(Customer item)
     {
-        var customer = GetByKey(item.Id);
+        var customer = await GetByKey(item.Id);
+
         if (customer != null)
         {
             customer.Age = item.Age;
